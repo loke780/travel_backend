@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Travel Booking Form</title>
+</head>
+<body>
+    <form id="bookingForm">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="tel" name="phone" placeholder="Phone Number" required>
+        <select name="hotelType" required>
+            <option value="">Select Hotel Type</option>
+            <option value="luxury">Luxury</option>
+            <option value="business">Business</option>
+            <option value="economy">Economy</option>
+        </select>
+        <input type="date" name="tourDate" required>
+        <input type="text" name="destination" placeholder="Destination" required>
+        <textarea name="pickupAddress" placeholder="Pickup Address" required></textarea>
+        <textarea name="specialRequests" placeholder="Special Requests"></textarea>
+        <button type="submit">Submit Booking</button>
+    </form>
+
+    <script>
+        const RENDER_API_URL = 'https://your-render-api-url/api/bookings';
+
+        document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const bookingData = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch(RENDER_API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(bookingData)
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert('Booking submitted successfully!');
+                    e.target.reset();
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to submit booking. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html> 

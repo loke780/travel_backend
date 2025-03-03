@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS bookings (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  phone VARCHAR(20) NOT NULL,
+  hotel_type VARCHAR(100) NOT NULL,
+  tour_date DATE NOT NULL,
+  destination VARCHAR(255) NOT NULL,
+  pickup_address TEXT NOT NULL,
+  special_requests TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+); 
